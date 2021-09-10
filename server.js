@@ -102,7 +102,7 @@ app.post('/register', (req, res) => {
 
 })
 
-app.post('/', (req, res) => {
+app.post('/custlogin', (req, res) => {
     const email = req.body.inputEmail
     var password = req.body.inputPassword
 
