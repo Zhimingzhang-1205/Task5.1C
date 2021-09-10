@@ -21,9 +21,12 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+    function login(){
+            window.location="/custlogin"
+        }
     (function () {
   'use strict'
-
+        
   window.addEventListener('load', function () {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation')
@@ -176,7 +179,9 @@
 
                     <hr class="mb-4">
                     <button class="btn btn-primary btn-lg btn-block" type="submit" name="creat">Creat Account</button>
-                </form>
+                   
+                </form><br>
+                    <button class="btn btn-primary btn-lg btn-block" name="login" onclick="login()">Login Account</button>
             </div>
         </div>
 

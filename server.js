@@ -35,62 +35,7 @@ app.post('/register', (req, res) => {
     const zip = req.body.zip
     const phone = req.body.phone
 
-    const userSchema = new mongoose.Schema({
-        city: {
-            type: String,
-            trim: true,
-            required: true
-        },
-        fname: {
-            type: String,
-            maxlength: 50,
-            trim: true,
-            required: true
-        },
-        lname: {
-            type: String,
-            maxlength: 50,
-            trim: true,
-            required: true
-        },
-        email: {
-            type: String,
-            lowercase: true,
-            required: true,
-            validate(value) {
-                if (!validator.isEmail(value)) { throw new Error('The email is not valid!') }
-            }
-        },
-        password: {
-            type: String,
-            minlength: 8,
-            required: true
-        },
-        cpassword: {
-            type: String,
-            minlength: 8,
-            required: true,
-            validator(value) {
-                if (!(value == this.password)) {
-                    { throw new Error('Two passwords are not the same') }
-                }
-            }
-        },
-        address: {
-            type: String,
-            required: true,
-        },
-        address1: {
-            type: String,
-            required: true,
-        },
-        region: {
-            type: String,
-            required: true,
-        },
-        zip: String,
-        phone: String,
-    })
+   
     const saltRouns =10;
     const salt=bcrypt.genSaltSync(saltRouns);
     var hashpass=bcrypt.hashSync(password,salt);
