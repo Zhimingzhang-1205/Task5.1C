@@ -4,6 +4,7 @@ const https = require("https")
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require('bcryptjs')
+const User = require("./models/User.js")
 mongoose.connect("mongodb+srv://admin:zhimingzhang@cluster0.bxxpf.mongodb.net/deakin?retryWrites=true&w=majority", { useNewUrlParser: true })
 const app = express()
 
@@ -35,15 +36,14 @@ app.post('/register', (req, res) => {
     const zip = req.body.zip
     const phone = req.body.phone
 
-   
+    
     const saltRouns =10;
     const salt=bcrypt.genSaltSync(saltRouns);
     var hashpass=bcrypt.hashSync(password,salt);
     password=hashpass;
     var hashcpass=bcrypt.hashSync(cpassword,salt);
     cpassword=hashcpass;
-    const Users = mongoose.model("Users", userSchema)
-    const user = new Users(
+    const user = new User(
         {
             lname: lname,
             fname: fname,
@@ -106,25 +106,8 @@ app.post('/', (req, res) => {
     const email = req.body.inputEmail
     var password = req.body.inputPassword
 
-
-    const userSchema = new mongoose.Schema({
-        email: {
-            type: String,
-            lowercase: true,
-            required: true,
-            validate(value) {
-                if (!validator.isEmail(value)) { throw new Error('The email is not valid!') }
-            }
-        },
-        password: {
-            type: String,
-            minlength: 8,
-            required: true
-        },
-    })
-    const Userslogin = mongoose.model("Users", userSchema)
     
-    Userslogin.find({email:email},function(erro,result){
+    User.find({email:email},function(erro,result){
         for(var i=0;i<result.length;i++){
 
         
@@ -138,10 +121,10 @@ app.post('/', (req, res) => {
             console.log(pwd)
             if(pwd){
                console.log("Successfull!")
-               res.redirect('/success') 
+               res.sendFile(__dirname + "/success.html")
             }else{
                 res.flash("password erro!")
-                res.redirect('/') 
+     
             }
             
         }
